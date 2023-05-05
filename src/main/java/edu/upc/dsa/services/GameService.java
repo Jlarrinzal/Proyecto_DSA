@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiResponses;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Objects;
 
 @Api(value = "/Game", description = "Endpoint to Game Service")
 @Path("/game")
@@ -25,7 +26,7 @@ public class GameService {
     public GameService() {
         this.manager = GameManagerImpl.getInstance();
         if (manager.size() == 0) {
-           // this.manager.addObjeto("pokeball", "Captura Pokemon", 5.00);
+            // this.manager.addObjeto("pokeball", "Captura Pokemon", 5.00);
             this.manager.registrarUsuario("Jose", "jose@gmail.com", "123");
             //this.manager.registrarUsuario("Prueba", "prueba@gmail.com", "1234");
         }
@@ -35,7 +36,7 @@ public class GameService {
     @POST
     @ApiOperation(value = "Registrar usuario", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response= UsuarioTO.class),
+            @ApiResponse(code = 201, message = "Successful", response = UsuarioTO.class),
             @ApiResponse(code = 500, message = "Validation Error")
 
     })
@@ -43,11 +44,18 @@ public class GameService {
     @Path("/registrarUsuario")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registrarUsuario(UsuarioTO usuario) {
+        Usuario u = this.manager.getUsuarioPorCorreo(usuario.getCorreo());
 
-        if (usuario.getNombre()==null) return Response.status(500).entity(usuario).build();
-        this.manager.registrarUsuario(usuario.getNombre(), usuario.getCorreo(), usuario.getPassword());
-        return Response.status(201).entity(usuario).build();
+        if (u != null) {
+            return Response.status(500).entity(usuario).build();
+
+        } else {
+            this.manager.registrarUsuario(usuario.getNombre(), usuario.getCorreo(), usuario.getPassword());
+            return Response.status(201).entity(usuario).build();
+        }
     }
+
+
 
     //Añadir objeto
     @POST
@@ -79,11 +87,21 @@ public class GameService {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(CredencialTO credencials) {
+        Usuario u = this.manager.getUsuarioPorCorreo(credencials.getCorreo());
 
-        if (credencials.getCorreo()==null) return Response.status(500).entity(credencials).build();
-        this.manager.login(credencials.getCorreo(), credencials.getPassword());
-        return Response.status(201).entity(credencials).build();
+        if (u == null) {
+            return Response.status(404).entity("Usuario no encontrado").build();
+        }
+
+        if (credencials.getPassword().equals(u.getPassword())) {
+            this.manager.login(credencials.getCorreo(), credencials.getPassword());
+            return Response.status(201).entity(credencials).build();
+
+        } else {
+            return Response.status(404).entity("credenciales invalidas").build();
+        }
     }
+
 
 
     // comprar objetos por parte de un usuario
