@@ -13,8 +13,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Objects;
 
 @Api(value = "/Game", description = "Endpoint to Game Service")
@@ -29,6 +31,9 @@ public class GameService {
             // this.manager.addObjeto("pokeball", "Captura Pokemon", 5.00);
             this.manager.registrarUsuario("Jose", "jose@gmail.com", "123");
             //this.manager.registrarUsuario("Prueba", "prueba@gmail.com", "1234");
+            this.manager.addObjeto("Monitor","144Hz",99.99);
+            this.manager.addObjeto("Raton","inalambrico",20.00);
+            this.manager.addObjeto("Teclado","Retroiluminado",50.00);
         }
     }
 
@@ -122,5 +127,39 @@ public class GameService {
         this.manager.hacerCompra(usuario.getNombre(), objeto.getNombre());
         return Response.status(201).entity(objeto).build();
     }
+
+    //lista objetos
+    @GET
+    @ApiOperation(value = "lista objetos", notes = "asdas")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Objeto.class, responseContainer="List"),
+    })
+    @Path("/listaObjetos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getlistaObjetos() {
+
+        List<Objeto> objeto = this.manager.listadeObjetos();
+
+        GenericEntity<List<Objeto>> entity = new GenericEntity<List<Objeto>>(objeto) {};
+        return Response.status(201).entity(entity).build()  ;
+
+    }
+
+    //lista objetos ordenados ascendentemente
+ /*   @GET
+    @ApiOperation(value = "lista objetos ordenados ascendentemente", notes = "asdas")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Objeto.class, responseContainer="List"),
+    })
+    @Path("/listaObjetosAscendente")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getlistaObjetosOrdenadosAscendentemente() {
+
+       List<Objeto> objeto = this.manager.listadeObjetosOrdenadosPorPrecio();
+
+        GenericEntity<List<Objeto>> entity = new GenericEntity<List<Objeto>>(objeto) {};
+        return Response.status(201).entity(entity).build();
+
+    } */
 
 }

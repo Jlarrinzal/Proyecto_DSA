@@ -5,6 +5,7 @@ import edu.upc.dsa.models.Usuario;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class GameManagerImpl implements GameManager {
     HashMap<String, Usuario> Usuarios;
     List<Usuario> listaUsuarios;
     HashMap<String, Objeto> Objetos;
-    List<Objeto> listaObjetos;
+    protected List<Objeto> listaObjetos;
 
     private static GameManager instance;
     final static Logger logger = Logger.getLogger(GameManagerImpl.class);
@@ -90,11 +91,24 @@ public class GameManagerImpl implements GameManager {
         }
         return null;
     }
-    // registrar usuario
-    /*    Usuario usuario = new Usuario(correo, password);
-        listaUsuarios.add(usuario);
-        logger.info("Usuario registrado con éxito");
-        return usuario; */
+
+    @Override
+    public List<Objeto> listadeObjetos() {
+        logger.info("Lista de objetos: " + listaObjetos.toString());
+        return this.listaObjetos;
+    }
+
+/*    @Override
+    public List<Objeto> listadeObjetosOrdenadosPorPrecio() {
+        this.listaObjetos.sort(new Comparator<Objeto>() {
+            public int compare(Objeto o1, Objeto o2) {
+                return Double.compare(o2.getPrecio(), o1.getPrecio());
+            }
+        });
+        logger.info("Lista ordenada por precio ascendente: " + listaObjetos.toString());
+        return listaObjetos;
+
+    } */
 
 
     //extras
@@ -124,6 +138,11 @@ public class GameManagerImpl implements GameManager {
             }
         }
         return null;
+    }
+
+    @Override
+    public void clear() {
+        this.listaObjetos.clear();
     }
 
     @Override

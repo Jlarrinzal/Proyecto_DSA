@@ -12,10 +12,12 @@ public class Objeto {
     }
 
     public Objeto(String nombre, String descripcion, double precio){
-
-        setNombre(nombre);
-        setDescripcion(descripcion);
-        setPrecio(precio);
+        this.setNombre(nombre);
+        this.setDescripcion(descripcion);
+        this.setPrecio(precio);
+    }
+    public String toString(){
+        return getNombre();
     }
 
     public String getNombre() {

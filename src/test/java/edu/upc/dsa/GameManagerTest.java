@@ -47,4 +47,21 @@ public class GameManagerTest {
         manager.login("DSA@gmail.com","1234");
         manager.login("prueba@gmail.com","supersegura2");
     }
+
+    @Test
+    public void listaObjetos(){
+        manager.addObjeto("Monitor","144Hz",99.99);
+        manager.addObjeto("Raton","inalambrico",20.00);
+        manager.addObjeto("Teclado","Retroiluminado",50.00);
+        manager.listadeObjetos();
+    }
+
+    @Test
+    public void listaObjetosOrdenadosPorPrecio(){
+        manager.addObjeto("Monitor","144Hz",99.99);
+        manager.addObjeto("Raton","inalambrico",20.00);
+        manager.addObjeto("Teclado","Retroiluminado",50.00);
+       // manager.listadeObjetosOrdenadosPorPrecio();
+
+    }
 }
