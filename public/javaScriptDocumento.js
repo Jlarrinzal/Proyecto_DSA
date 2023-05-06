@@ -17,7 +17,7 @@ function logear(){
         data: JSON.stringify({ "correo": correo, "password": password }),
         dataType: 'json',
         success: function(result){
-            localStorage.setItem("usuarioactivo", correo);
+            window.location.href="Tienda.html"
             alert("Login correcto.")
         },
         error: function(error){
@@ -56,3 +56,42 @@ function registrar() {
     }
     else alert("Comprueba que las dos contraseñas son iguales.");
 }
+function listadeObjetos() {
+    $.ajax({
+        type:'GET',
+        url:"/dsaApp/game/listaObjetos",
+        dataType:'json',
+        success:function (result) {
+            for (let i = 0; i < result.length; i++) {
+                console.log("i: " + i, result[i]);
+                $("#tabla").append(
+                    "<tr> <td>" + result[i].nombre +
+                    "</td> <td>" + result[i].descripcion +
+                    "</td> <td>" + result[i].precio
+                );
+            }
+        },
+        error: function (error) {
+            alert("Unable to get Shop data.");
+            console.log(error);
+            window.location.href = "Main.html";
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
