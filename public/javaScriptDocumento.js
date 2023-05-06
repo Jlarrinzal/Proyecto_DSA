@@ -57,6 +57,7 @@ function registrar() {
     else alert("Comprueba que las dos contraseñas son iguales.");
 }
 function listadeObjetos() {
+    $("#tcuerpo").empty();
     $.ajax({
         type:'GET',
         url:"/dsaApp/game/listaObjetos",

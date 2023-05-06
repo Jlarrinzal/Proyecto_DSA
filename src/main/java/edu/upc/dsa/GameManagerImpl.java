@@ -15,7 +15,6 @@ public class GameManagerImpl implements GameManager {
     List<Usuario> listaUsuarios;
     HashMap<String, Objeto> Objetos;
     protected List<Objeto> listaObjetos;
-
     private static GameManager instance;
     final static Logger logger = Logger.getLogger(GameManagerImpl.class);
 
@@ -46,7 +45,6 @@ public class GameManagerImpl implements GameManager {
 
     @Override
     public void addObjeto(String nombre, String descripcion, double precio) {
-
         this.listaObjetos.add(new Objeto(nombre, descripcion, precio));
         logger.info("Se ha añadido correctamente");
     }
@@ -147,7 +145,7 @@ public class GameManagerImpl implements GameManager {
 
     @Override
     public int size() {
-        return 0;
+        return this.listaObjetos.size();
     }
 
     // public int size() {
