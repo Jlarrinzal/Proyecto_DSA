@@ -32,9 +32,9 @@ public class GameService {
             this.manager.registrarUsuario("Jose", "jose@gmail.com", "123");
             this.manager.registrarUsuario("Jose", "n", "123");
             //this.manager.registrarUsuario("Prueba", "prueba@gmail.com", "1234");
-            this.manager.addObjeto("Monitor","144Hz",99.99);
-            this.manager.addObjeto("Raton","inalambrico",20.00);
-            this.manager.addObjeto("Teclado","Retroiluminado",50.00);
+            this.manager.addObjeto("Monitor","144Hz",99.99,"https://img.freepik.com/vector-premium/monitor-computadora-realista_88272-327.jpg");
+            this.manager.addObjeto("Raton","inalambrico",20.00,"https://www.info-computer.com/156049-medium_default/logitech-lgt-m90-1000-dpi-gris-q.jpg");
+            this.manager.addObjeto("Teclado","Retroiluminado",50.00,"https://www.shutterstock.com/image-photo/computer-keyboard-isolated-on-white-260nw-222047851.jpg");
         }
     }
 
@@ -77,7 +77,7 @@ public class GameService {
     public Response addObjeto(Objeto objeto) {
 
         if (objeto.getNombre()==null || objeto.getDescripcion()==null || objeto.getPrecio()==0.00)  return Response.status(500).entity(objeto).build();
-        this.manager.addObjeto(objeto.getNombre(), objeto.getDescripcion(),objeto.getPrecio());
+        this.manager.addObjeto(objeto.getNombre(), objeto.getDescripcion(),objeto.getPrecio(), objeto.getFotoImagen());
         return Response.status(201).entity(objeto).build();
     }
 

@@ -16,8 +16,8 @@ public class GameManagerTest {
         manager.registrarUsuario("Jose", "Larrinzal", "Jimenez");
         manager.registrarUsuario("Pedro", "Lopez", "Lopez");
 
-        manager.addObjeto("pikachu","tipo electrico", 59.99);
-        manager.addObjeto("charmander","tipo fuego", 45.99);
+        manager.addObjeto("pikachu","tipo electrico", 59.99,"pikachu");
+        manager.addObjeto("charmander","tipo fuego", 45.99,"charmander");
 
     }
 
@@ -28,7 +28,7 @@ public class GameManagerTest {
 
     @Test
     public void addObjeto(){
-        manager.addObjeto("torchic","tipo fuego",49.99);
+        manager.addObjeto("torchic","tipo fuego",49.99,"torchic");
     }
 
     @Test
@@ -50,17 +50,17 @@ public class GameManagerTest {
 
     @Test
     public void listaObjetos(){
-        manager.addObjeto("Monitor","144Hz",99.99);
-        manager.addObjeto("Raton","inalambrico",20.00);
-        manager.addObjeto("Teclado","Retroiluminado",50.00);
+        manager.addObjeto("Monitor","144Hz",99.99,"Monitor");
+        manager.addObjeto("Raton","inalambrico",20.00,"Raton");
+        manager.addObjeto("Teclado","Retroiluminado",50.00,"Teclado");
         manager.listadeObjetos();
     }
 
     @Test
     public void listaObjetosOrdenadosPorPrecio(){
-        manager.addObjeto("Monitor","144Hz",99.99);
-        manager.addObjeto("Raton","inalambrico",20.00);
-        manager.addObjeto("Teclado","Retroiluminado",50.00);
+        manager.addObjeto("Monitor","144Hz",99.99,"Monitor");
+        manager.addObjeto("Raton","inalambrico",20.00,"Raton");
+        manager.addObjeto("Teclado","Retroiluminado",50.00,"Teclado");
        // manager.listadeObjetosOrdenadosPorPrecio();
 
     }

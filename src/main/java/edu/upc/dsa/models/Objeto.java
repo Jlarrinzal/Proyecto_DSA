@@ -8,13 +8,16 @@ public class Objeto {
 
     double precio;
 
+    String fotoImagen;
+
     public Objeto() {
     }
 
-    public Objeto(String nombre, String descripcion, double precio){
+    public Objeto(String nombre, String descripcion, double precio, String fotoImagen){
         this.setNombre(nombre);
         this.setDescripcion(descripcion);
         this.setPrecio(precio);
+        this.setFotoImagen(fotoImagen);
     }
     public String toString(){
         return getNombre();
@@ -42,5 +45,13 @@ public class Objeto {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public String getFotoImagen() {
+        return fotoImagen;
+    }
+
+    public void setFotoImagen(String fotoImagen) {
+        this.fotoImagen = fotoImagen;
     }
 }

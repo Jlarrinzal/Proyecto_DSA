@@ -44,8 +44,8 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
-    public void addObjeto(String nombre, String descripcion, double precio) {
-        this.listaObjetos.add(new Objeto(nombre, descripcion, precio));
+    public void addObjeto(String nombre, String descripcion, double precio, String fotoImagen) {
+        this.listaObjetos.add(new Objeto(nombre, descripcion, precio, fotoImagen));
         logger.info("Se ha añadido correctamente");
     }
 

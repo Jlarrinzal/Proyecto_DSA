@@ -10,7 +10,7 @@ public interface GameManager {
     //Añadir Usuario
     public void registrarUsuario(String nombre, String correo, String password);
     //Añadir Objeto/Producto
-    public void addObjeto(String nombre, String descripcion, double precio);
+    public void addObjeto(String nombre, String descripcion, double precio, String fotoImagen);
     //Login Usuario
     public void login(String correo, String password);
     // Metodo hacer una compra
