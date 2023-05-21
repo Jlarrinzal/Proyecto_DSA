@@ -7,6 +7,7 @@ import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
 import edu.upc.dsa.models.dto.CredencialTO;
 import edu.upc.dsa.models.dto.UsuarioTO;
+import edu.upc.eetac.dsa.UserDAOImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -26,11 +27,14 @@ public class GameService {
     private GameManager manager;
 
     public GameService() {
-        this.manager = GameManagerImpl.getInstance();
+        this.manager = GameManagerImpl.getInstance(); //GameManagerImpl.getInstance();  new UserDAOImpl();
+        //IU
+
         if (manager.size() == 0) {
             // this.manager.addObjeto("pokeball", "Captura Pokemon", 5.00);
             this.manager.registrarUsuario("Jose", "jose@gmail.com", "123");
             this.manager.registrarUsuario("Jose", "n", "123");
+            //this.manager.addUsuario("P","p","12");
             //this.manager.registrarUsuario("Prueba", "prueba@gmail.com", "1234");
             this.manager.addObjeto("Monitor","144Hz",99.99,"https://img.freepik.com/vector-premium/monitor-computadora-realista_88272-327.jpg");
             this.manager.addObjeto("Raton","inalambrico",20.00,"https://www.info-computer.com/156049-medium_default/logitech-lgt-m90-1000-dpi-gris-q.jpg");
@@ -50,13 +54,15 @@ public class GameService {
     @Path("/registrarUsuario")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registrarUsuario(UsuarioTO usuario) {
-        Usuario u = this.manager.getUsuarioPorCorreo(usuario.getCorreo());
+        //Usuario u = this.manager.getUsuarioPorCorreo(usuario.getCorreo());
+        UsuarioTO u = this.manager.getUserByEmail(usuario.getCorreo());
 
         if (u != null) {
             return Response.status(500).entity(usuario).build();
 
         } else {
-            this.manager.registrarUsuario(usuario.getNombre(), usuario.getCorreo(), usuario.getPassword());
+            //this.manager.registrarUsuario(usuario.getNombre(), usuario.getCorreo(), usuario.getPassword());
+            this.manager.addUsuario(usuario.getNombre(), usuario.getCorreo(), usuario.getPassword());
             return Response.status(201).entity(usuario).build();
         }
     }
@@ -93,14 +99,15 @@ public class GameService {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(CredencialTO credencials) {
-        Usuario u = this.manager.getUsuarioPorCorreo(credencials.getCorreo());
+        //Usuario u = this.manager.getUsuarioPorCorreo(credencials.getCorreo());
+        UsuarioTO u = this.manager.getUserByEmail(credencials.getCorreo());
 
         if (u == null) {
             return Response.status(404).entity("Usuario no encontrado").build();
         }
 
         if (credencials.getPassword().equals(u.getPassword())) {
-            this.manager.login(credencials.getCorreo(), credencials.getPassword());
+            this.manager.loginORM(credencials.getCorreo(), credencials.getPassword());
             return Response.status(201).entity(credencials).build();
 
         } else {

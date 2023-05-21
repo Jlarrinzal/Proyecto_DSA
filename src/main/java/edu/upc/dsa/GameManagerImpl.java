@@ -2,6 +2,10 @@ package edu.upc.dsa;
 
 import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
+import edu.upc.dsa.models.dto.UsuarioTO;
+import edu.upc.eetac.dsa.FactorySession;
+import edu.upc.eetac.dsa.Session;
+import edu.upc.eetac.dsa.model.User;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -44,6 +48,26 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
+    public int addUsuario(String nombre, String correo, String password) {
+        Session session = null;
+        int userID = 0;
+        try {
+            session = FactorySession.openSession();
+            UsuarioTO u = new UsuarioTO(nombre, correo, password);
+            session.save(u);
+        }
+        catch (Exception e) {
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+
+        return userID;
+
+    }
+
+    @Override
     public void addObjeto(String nombre, String descripcion, double precio, String fotoImagen) {
         this.listaObjetos.add(new Objeto(nombre, descripcion, precio, fotoImagen));
         logger.info("Se ha añadido correctamente");
@@ -65,6 +89,34 @@ public class GameManagerImpl implements GameManager {
             logger.info("Contraseña incorrecta");
         }
     }
+
+    @Override
+    public boolean loginORM(String correo, String password) {
+        Session session = null;
+        UsuarioTO usuario = null;
+        try {
+            session = FactorySession.openSession();
+            usuario= getUserByEmail(correo);
+            if (usuario.getCorreo().equals(correo)&(usuario.getPassword().equals(password))){
+                logger.info("usuario loggedo");
+                return true;
+
+            }
+            logger.info("usuario NO loggedo");
+            return false;
+            /*User u = new User(email, password);
+            session.save(u);*/
+        }
+        catch (Exception e) {
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+
+        return false;
+        }
+
 
     @Override
     public Objeto hacerCompra(String Usuario, String nombreObjeto) {
@@ -136,6 +188,24 @@ public class GameManagerImpl implements GameManager {
             }
         }
         return null;
+    }
+
+    @Override
+    public UsuarioTO getUserByEmail(String correo) {
+        Session session = null;
+        UsuarioTO usuario = null;
+        try {
+            session = FactorySession.openSession();
+            usuario = (UsuarioTO) session.get(UsuarioTO.class, "correo", correo);
+        }
+        catch (Exception e) {
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+
+        return usuario;
     }
 
     @Override

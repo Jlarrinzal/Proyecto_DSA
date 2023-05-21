@@ -1,6 +1,11 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.models.dto.UsuarioTO;
+import edu.upc.eetac.dsa.IUserDAO;
+import edu.upc.eetac.dsa.UserDAOImpl;
+import edu.upc.eetac.dsa.model.User;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -63,5 +68,23 @@ public class GameManagerTest {
         manager.addObjeto("Teclado","Retroiluminado",50.00,"Teclado");
        // manager.listadeObjetosOrdenadosPorPrecio();
 
+    }
+
+    @Test
+    public void addUsuarioORM(){
+        manager.addUsuario("aaaa","aa","12");
+    }
+
+    @Test
+    public void getLoginTest(){
+//      Assert.assertTrue(userDAO.login("Borja@gmail.com", "478356"));
+        Assert.assertTrue(manager.loginORM("aa", "12"));
+    }
+
+    @Test
+    public void getUserTest2() {
+
+        UsuarioTO user5 = manager.getUserByEmail("jose2@gmail.com");
+        Assert.assertEquals("Jose", user5.getNombre());
     }
 }
