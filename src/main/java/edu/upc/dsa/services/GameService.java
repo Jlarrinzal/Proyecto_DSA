@@ -169,9 +169,25 @@ public class GameService {
     @Path("/listaObjetos")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getlistaObjetos() {
-        List<Objeto> objeto = this.manager.listadeObjetos();
+        List<Objeto> objeto = this.manager.listadeObjetosORM();
         GenericEntity<List<Objeto>> entity = new GenericEntity<List<Objeto>>(objeto) {};
         return Response.status(201).entity(entity).build()  ;
+    }
+
+    //Datos Usuario
+    @GET
+    @ApiOperation(value = "Datos Usuario", notes = "asdas")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Usuario.class),
+    })
+    @Path("/datosUsuario/{correo}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsuario(@PathParam("correo") String correo) {
+        Usuario u = this.manager.getUserByEmailORM(correo);
+        if (u != null)
+            return Response.status(201).entity(u).build();
+        else
+            return Response.status(500).build();
     }
 
     //lista objetos ordenados ascendentemente

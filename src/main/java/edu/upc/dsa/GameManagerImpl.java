@@ -220,6 +220,23 @@ public class GameManagerImpl implements GameManager {
         return this.listaObjetos;
     }
 
+    @Override
+    public List<Objeto> listadeObjetosORM() {
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            List<Objeto> listaObjetos = session.findAll(new Objeto().getClass());
+            return listaObjetos;
+        }
+        catch (Exception e){
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+        return null;
+    }
+
 /*    @Override
     public List<Objeto> listadeObjetosOrdenadosPorPrecio() {
         this.listaObjetos.sort(new Comparator<Objeto>() {

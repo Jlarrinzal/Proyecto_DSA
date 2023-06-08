@@ -10,6 +10,7 @@ public class Usuario {
     String password;
     //private List<Objeto> listaObjetosComprados = null;
     double dsacoins = 500;
+    String foto;
 
     public Usuario() {
 
@@ -21,7 +22,6 @@ public class Usuario {
         this.setCorreo(usuarioTO.getCorreo());
         this.setPassword(usuarioTO.getPassword());
         this.setDsacoins(500);
-
     }
     public Usuario(String correo, String password){
         this.setCorreo(correo);
@@ -90,5 +90,13 @@ public class Usuario {
 
     public void setDsacoins(double dsacoins) {
         this.dsacoins = dsacoins;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }
