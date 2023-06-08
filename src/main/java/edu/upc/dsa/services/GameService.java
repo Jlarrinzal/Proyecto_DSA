@@ -144,15 +144,15 @@ public class GameService {
 
     })
 
-    @Path("/compraObjetos/{idUsuario}/{idObjeto}")
+    @Path("/compraObjetos/{correo}/{nombreObjeto}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response hacerCompra(@PathParam("idUsuario")  Integer idUsuario, @PathParam("idObjeto")  Integer idObjeto) {
+    public Response hacerCompra(@PathParam("correo")  String correo, @PathParam("nombreObjeto")  String nombreObjeto) {
 /*        Objeto objeto = this.manager.getObjetoPorNombre(idUsuario);
         Usuario usuario = this.manager.getUsuarioPorNombre(Usuario);
         if (objeto.getNombre()==null || objeto.getDescripcion()==null)  return Response.status(500).build();
         this.manager.hacerCompraORM(usuario.getCorreo(), objeto.getNombre());
         return Response.status(201).entity(objeto).build();*/
-        TablaCompra tablaCompra = this.manager.hacerCompraORM(idUsuario, idObjeto);
+        TablaCompra tablaCompra = this.manager.hacerCompraORM(correo, nombreObjeto);
         if (tablaCompra==null) {
             return Response.status(500).build();
         }

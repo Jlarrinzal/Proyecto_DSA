@@ -186,12 +186,12 @@ public class GameManagerImpl implements GameManager {
     }*/
 
     @Override
-    public TablaCompra hacerCompraORM(Integer usuario1, Integer objeto1) {
+    public TablaCompra hacerCompraORM(String correo, String nombreObjeto) {
         Session session = null;
         try {
             session = FactorySession.openSession();
-            Usuario usuario = getUsuarioORM(usuario1);
-            Objeto objeto = getObjetoORM(objeto1);
+            Usuario usuario = getUserByEmailORM(correo);
+            Objeto objeto = getObjectByNameORM(nombreObjeto);
 
             if(usuario.getDsacoins() < objeto.getPrecio()){
                 return null;
@@ -200,7 +200,7 @@ public class GameManagerImpl implements GameManager {
                 double dinero = usuario.getDsacoins()-objeto.getPrecio();
                 usuario.setDsacoins(dinero);
                 session.update(usuario);
-                TablaCompra tablacompra = new TablaCompra(usuario1, objeto1);
+                TablaCompra tablacompra = new TablaCompra(correo, nombreObjeto);
                 session.save(tablacompra);
                 return tablacompra;
             }
@@ -281,13 +281,31 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
-    public Usuario getUsuarioORM(Integer idUsuario) {
+    public Objeto getObjectByNameORM(String nombreObjeto) {
+        Session session = null;
+        Objeto objeto = null;
+        try {
+            session = FactorySession.openSession();
+            objeto = (Objeto) session.get(Objeto.class, "nombre", nombreObjeto);
+        }
+        catch (Exception e) {
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+
+        return objeto;
+    }
+
+    @Override
+    public Usuario getUsuarioORM(String correo) {
         Session session = null;
         try {
             session = FactorySession.openSession();
             List<Usuario> listaUsuarios = session.findAll(new Usuario().getClass());
             for (Usuario usuario : listaUsuarios) {
-                if (usuario.getId() == idUsuario) {
+                if (usuario.getCorreo() == correo) {
                     return usuario;
                 }
             }
@@ -304,13 +322,13 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
-    public Objeto getObjetoORM(Integer idObjeto){
+    public Objeto getObjetoORM(String nombre){
         Session session = null;
         try {
             session = FactorySession.openSession();
             List<Objeto> listaObjetos = session.findAll(new Objeto().getClass());
             for (Objeto objeto : listaObjetos) {
-                if (objeto.getId() == idObjeto) {
+                if (objeto.getNombre() == nombre) {
                     return objeto;
                 }
             }

@@ -99,17 +99,17 @@ public class GameManagerTest {
 
     @Test
     public void Compra() {
-        manager.hacerCompraORM(1, 1);
+        manager.hacerCompraORM("c", "melon");
     }
 
     @Test
     public void getusuORM(){
-        manager.getUsuarioORM(1);
+        manager.getUsuarioORM("j");
     }
 
     @Test
     public void getobjORM(){
-        manager.getObjetoORM(1);
+        manager.getObjetoORM("manzana");
     }
 
 }

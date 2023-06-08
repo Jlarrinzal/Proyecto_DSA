@@ -6,31 +6,30 @@ import io.swagger.models.auth.In;
 
 public class TablaCompra {
 
-    Integer usuario1;
+    String correo;
 
-    Integer objeto1;
+    String nombreObjeto;
 
     public TablaCompra(){}
 
-    public TablaCompra(Integer usuario1, Integer objeto1){
-        this.setUsuario1(usuario1);
-        this.setObjeto1(objeto1);
+    public TablaCompra(String correo, String nombreObjeto){
+        this.setCorreo(correo);
+        this.setNombreObjeto(nombreObjeto);
     }
 
-    public Integer getUsuario1() {
-        return usuario1;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setUsuario1(Integer usuario1) {
-        this.usuario1 = usuario1;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
-    public Integer getObjeto1() {
-        return objeto1;
+    public String getNombreObjeto() {
+        return nombreObjeto;
     }
 
-    public void setObjeto1(Integer objeto1) {
-        this.objeto1 = objeto1;
+    public void setNombreObjeto(String nombreObjeto) {
+        this.nombreObjeto = nombreObjeto;
     }
-
 }
