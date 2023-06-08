@@ -6,6 +6,8 @@ import edu.upc.dsa.models.dto.TablaCompra;
 import edu.upc.dsa.models.dto.UsuarioTO;
 import edu.upc.eetac.dsa.FactorySession;
 import edu.upc.eetac.dsa.Session;
+import edu.upc.eetac.dsa.IUserDAO;
+import edu.upc.eetac.dsa.UserDAOImpl;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -184,12 +186,12 @@ public class GameManagerImpl implements GameManager {
     }*/
 
     @Override
-    public TablaCompra hacerCompraORM(Integer idUsuario, Integer idObjeto) {
+    public TablaCompra hacerCompraORM(Integer usuario1, Integer objeto1) {
         Session session = null;
         try {
             session = FactorySession.openSession();
-            Usuario usuario = getUsuarioORM(idUsuario);
-            Objeto objeto = getObjetoORM(idObjeto);
+            Usuario usuario = getUsuarioORM(usuario1);
+            Objeto objeto = getObjetoORM(objeto1);
 
             if(usuario.getDsacoins() < objeto.getPrecio()){
                 return null;
@@ -198,7 +200,7 @@ public class GameManagerImpl implements GameManager {
                 double dinero = usuario.getDsacoins()-objeto.getPrecio();
                 usuario.setDsacoins(dinero);
                 session.update(usuario);
-                TablaCompra tablacompra = new TablaCompra(idUsuario, idObjeto);
+                TablaCompra tablacompra = new TablaCompra(usuario1, objeto1);
                 session.save(tablacompra);
                 return tablacompra;
             }

@@ -18,7 +18,7 @@ public interface GameManager {
     public void login(String correo, String password); // login Usuario en arraylist
     public boolean loginORM(String correo, String password); // login usuario en BBDD
    // public Objeto hacerCompra(String Usuario, String nombreObjeto);     // Metodo hacer una compra con arraylist
-    public TablaCompra hacerCompraORM(Integer idUsuario, Integer idObjeto); // Metodo para hacer compra en BBDD
+    public TablaCompra hacerCompraORM(Integer usuario1, Integer objeto1); // Metodo para hacer compra en BBDD
     public List<Objeto> listadeObjetos(); // get lista de objetos
     //Lista de objetos ordenados precio ascendente
  //   List<Objeto> listadeObjetosOrdenadosPorPrecio();
