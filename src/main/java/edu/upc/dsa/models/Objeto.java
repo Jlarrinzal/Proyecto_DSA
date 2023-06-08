@@ -2,23 +2,33 @@ package edu.upc.dsa.models;
 
 public class Objeto {
 
+    int id;
     String nombre;
 
     String descripcion;
 
     double precio;
 
-    String fotoImagen;
+    String fotoimagen;
 
     public Objeto() {
     }
 
-    public Objeto(String nombre, String descripcion, double precio, String fotoImagen){
+    public Objeto( String nombre, String descripcion, double precio, String fotoimagen){
         this.setNombre(nombre);
         this.setDescripcion(descripcion);
         this.setPrecio(precio);
-        this.setFotoImagen(fotoImagen);
+        this.setFotoimagen(fotoimagen);
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String toString(){
         return getNombre();
     }
@@ -47,11 +57,11 @@ public class Objeto {
         this.precio = precio;
     }
 
-    public String getFotoImagen() {
-        return fotoImagen;
+    public String getFotoimagen() {
+        return fotoimagen;
     }
 
-    public void setFotoImagen(String fotoImagen) {
-        this.fotoImagen = fotoImagen;
+    public void setFotoimagen(String fotoimagen) {
+        this.fotoimagen = fotoimagen;
     }
 }

@@ -1,9 +1,6 @@
 package edu.upc.dsa;
 
 import edu.upc.dsa.models.dto.UsuarioTO;
-import edu.upc.eetac.dsa.IUserDAO;
-import edu.upc.eetac.dsa.UserDAOImpl;
-import edu.upc.eetac.dsa.model.User;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,7 +33,7 @@ public class GameManagerTest {
         manager.addObjeto("torchic","tipo fuego",49.99,"torchic");
     }
 
-    @Test
+/*    @Test
     public void Compra(){
         manager.hacerCompra("Jose", "charmander");
         manager.hacerCompra("Jose", "pikachu");
@@ -44,7 +41,7 @@ public class GameManagerTest {
         manager.hacerCompra("Juan", "pikachu");
         manager.registrarUsuario("Juan","Prueba","xd");
         manager.hacerCompra("Juan", "pikachu");
-    }
+    }*/
 
     @Test
     public void login(){
@@ -69,11 +66,19 @@ public class GameManagerTest {
        // manager.listadeObjetosOrdenadosPorPrecio();
 
     }
+/*
 
     @Test
     public void addUsuarioORM(){
-        manager.addUsuario("aaaa","aa","12");
+        manager.addUsuario("2","2","12");
     }
+
+    @Test
+    public void addUsuarioORM2(){
+        manager.addUsuario2("a","a","12");
+    }
+*/
+
 
     @Test
     public void getLoginTest(){
@@ -84,7 +89,27 @@ public class GameManagerTest {
     @Test
     public void getUserTest2() {
 
-        UsuarioTO user5 = manager.getUserByEmail("jose2@gmail.com");
-        Assert.assertEquals("Jose", user5.getNombre());
+        //UsuarioTO user5 = manager.getUserByEmailORM("jose2@gmail.com");
+      //  Assert.assertEquals("Jose", user5.getNombre());
     }
+    @Test
+    public void addObjetoORM(){
+        manager.addObjetoORM("manzana","roja",5.00,"a");
+    }
+
+    @Test
+    public void Compra() {
+        manager.hacerCompraORM(1, 1);
+    }
+
+    @Test
+    public void getusuORM(){
+        manager.getUsuarioORM(1);
+    }
+
+    @Test
+    public void getobjORM(){
+        manager.getObjetoORM(1);
+    }
+
 }

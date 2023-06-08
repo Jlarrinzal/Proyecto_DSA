@@ -6,8 +6,8 @@ import edu.upc.dsa.GameManagerImpl;
 import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
 import edu.upc.dsa.models.dto.CredencialTO;
+import edu.upc.dsa.models.dto.TablaCompra;
 import edu.upc.dsa.models.dto.UsuarioTO;
-import edu.upc.eetac.dsa.UserDAOImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -18,7 +18,6 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.Objects;
 
 @Api(value = "/Game", description = "Endpoint to Game Service")
 @Path("/game")
@@ -34,7 +33,7 @@ public class GameService {
             // this.manager.addObjeto("pokeball", "Captura Pokemon", 5.00);
             this.manager.registrarUsuario("Jose", "jose@gmail.com", "123");
             this.manager.registrarUsuario("Jose", "n", "123");
-            //this.manager.addUsuario("P","p","12");
+            //this.manager.addUsuarioORM("P","p","12");
             //this.manager.registrarUsuario("Prueba", "prueba@gmail.com", "1234");
             this.manager.addObjeto("Monitor","144Hz",99.99,"https://img.freepik.com/vector-premium/monitor-computadora-realista_88272-327.jpg");
             this.manager.addObjeto("Raton","inalambrico",20.00,"https://www.info-computer.com/156049-medium_default/logitech-lgt-m90-1000-dpi-gris-q.jpg");
@@ -55,16 +54,35 @@ public class GameService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registrarUsuario(UsuarioTO usuario) {
         //Usuario u = this.manager.getUsuarioPorCorreo(usuario.getCorreo());
-        UsuarioTO u = this.manager.getUserByEmail(usuario.getCorreo());
+        Usuario u = this.manager.getUserByEmailORM(usuario.getCorreo());
 
         if (u != null) {
             return Response.status(500).entity(usuario).build();
 
         } else {
             //this.manager.registrarUsuario(usuario.getNombre(), usuario.getCorreo(), usuario.getPassword());
-            this.manager.addUsuario(usuario.getNombre(), usuario.getCorreo(), usuario.getPassword());
+            this.manager.addUsuarioORM(usuario.getNombre(), usuario.getCorreo(), usuario.getPassword());
             return Response.status(201).entity(usuario).build();
         }
+    }
+
+    @POST
+    @ApiOperation(value = "registrar usuario 2", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response= UsuarioTO.class),
+            @ApiResponse(code = 500, message = "Validation Error")
+
+    })
+    @Path("/registrarUsuario2")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addUser(UsuarioTO usuarioTO) {//Antes VOUsuario user
+        Usuario user = new Usuario(usuarioTO);
+        user = this.manager.addUsuario2(user);
+        if (user == null) {
+            return Response.status(500).build();
+        }
+        else
+            return Response.status(201).entity(user).build();
     }
 
 
@@ -83,7 +101,7 @@ public class GameService {
     public Response addObjeto(Objeto objeto) {
 
         if (objeto.getNombre()==null || objeto.getDescripcion()==null || objeto.getPrecio()==0.00)  return Response.status(500).entity(objeto).build();
-        this.manager.addObjeto(objeto.getNombre(), objeto.getDescripcion(),objeto.getPrecio(), objeto.getFotoImagen());
+        this.manager.addObjeto(objeto.getNombre(), objeto.getDescripcion(),objeto.getPrecio(), objeto.getFotoimagen());
         return Response.status(201).entity(objeto).build();
     }
 
@@ -100,7 +118,7 @@ public class GameService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(CredencialTO credencials) {
         //Usuario u = this.manager.getUsuarioPorCorreo(credencials.getCorreo());
-        UsuarioTO u = this.manager.getUserByEmail(credencials.getCorreo());
+        Usuario u = this.manager.getUserByEmailORM(credencials.getCorreo());
 
         if (u == null) {
             return Response.status(404).entity("Usuario no encontrado").build();
@@ -119,21 +137,27 @@ public class GameService {
 
     // comprar objetos por parte de un usuario
     @POST
-    @ApiOperation(value = "crear objeto nuevo", notes = "asdasd")
+    @ApiOperation(value = "comprar objeto nuevo", notes = "asdasd")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful"),
             @ApiResponse(code = 500, message = "Validation Error")
 
     })
 
-    @Path("/{Usuario}/{nombreObjeto}")
+    @Path("/compraObjetos/{idUsuario}/{idObjeto}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response hacerCompra(@PathParam("Usuario")  String Usuario, @PathParam("nombreObjeto")  String nombreObjeto) {
-        Objeto objeto = this.manager.getObjetoPorNombre(nombreObjeto);
+    public Response hacerCompra(@PathParam("idUsuario")  Integer idUsuario, @PathParam("idObjeto")  Integer idObjeto) {
+/*        Objeto objeto = this.manager.getObjetoPorNombre(idUsuario);
         Usuario usuario = this.manager.getUsuarioPorNombre(Usuario);
         if (objeto.getNombre()==null || objeto.getDescripcion()==null)  return Response.status(500).build();
-        this.manager.hacerCompra(usuario.getNombre(), objeto.getNombre());
-        return Response.status(201).entity(objeto).build();
+        this.manager.hacerCompraORM(usuario.getCorreo(), objeto.getNombre());
+        return Response.status(201).entity(objeto).build();*/
+        TablaCompra tablaCompra = this.manager.hacerCompraORM(idUsuario, idObjeto);
+        if (tablaCompra==null) {
+            return Response.status(500).build();
+        }
+        else
+            return Response.status(201).build();
     }
 
     //lista objetos

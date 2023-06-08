@@ -1,23 +1,28 @@
 package edu.upc.dsa.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import edu.upc.dsa.models.dto.UsuarioTO;
 
 public class Usuario {
 
+    int id;
     String nombre;
-    String apellido;
-    String apellido2;
-    String fecha;
     String correo;
     String password;
-    private List<Objeto> listaObjetosComprados = null;
-    double dsaCoins = 500;
+    //private List<Objeto> listaObjetosComprados = null;
+    double dsacoins = 500;
 
     public Usuario() {
 
     }
 
+    public Usuario (UsuarioTO usuarioTO){
+        this.setId(id);
+        this.setNombre(usuarioTO.getNombre());
+        this.setCorreo(usuarioTO.getCorreo());
+        this.setPassword(usuarioTO.getPassword());
+        this.setDsacoins(500);
+
+    }
     public Usuario(String correo, String password){
         this.setCorreo(correo);
         this.setPassword(password);
@@ -40,6 +45,14 @@ public class Usuario {
         setPassword(password);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -47,31 +60,6 @@ public class Usuario {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getApellido2() {
-        return apellido2;
-    }
-
-    public void setApellido2(String apellido2) {
-        this.apellido2 = apellido2;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
     public String getCorreo() {
         return correo;
     }
@@ -88,19 +76,19 @@ public class Usuario {
         this.password = password;
     }
 
-    public List<Objeto> getListaObjetosComprados() {
+/*    public List<Objeto> getListaObjetosComprados() {
         return listaObjetosComprados;
     }
 
     public void setListaObjetosComprados(List<Objeto> listaObjetosComprados) {
         this.listaObjetosComprados = listaObjetosComprados;
+    }*/
+
+    public double getDsacoins() {
+        return dsacoins;
     }
 
-    public double getDsaCoins() {
-        return dsaCoins;
-    }
-
-    public void setDsaCoins(double dsaCoins) {
-        this.dsaCoins = dsaCoins;
+    public void setDsacoins(double dsacoins) {
+        this.dsacoins = dsacoins;
     }
 }

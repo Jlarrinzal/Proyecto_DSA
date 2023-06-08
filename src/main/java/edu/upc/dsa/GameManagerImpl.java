@@ -2,21 +2,20 @@ package edu.upc.dsa;
 
 import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
+import edu.upc.dsa.models.dto.TablaCompra;
 import edu.upc.dsa.models.dto.UsuarioTO;
 import edu.upc.eetac.dsa.FactorySession;
 import edu.upc.eetac.dsa.Session;
-import edu.upc.eetac.dsa.model.User;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 public class GameManagerImpl implements GameManager {
 
     HashMap<String, Usuario> Usuarios;
-    List<Usuario> listaUsuarios;
+    protected List<Usuario> listaUsuarios;
     HashMap<String, Objeto> Objetos;
     protected List<Objeto> listaObjetos;
     private static GameManager instance;
@@ -48,7 +47,7 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
-    public int addUsuario(String nombre, String correo, String password) {
+    public int addUsuarioORM(String nombre, String correo, String password) {
         Session session = null;
         int userID = 0;
         try {
@@ -68,9 +67,51 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
+    public Usuario addUsuario2(Usuario u) {
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            List<Usuario> listaUsuarios = session.findAll(Usuario.class);
+            for (Usuario us : listaUsuarios) {
+                if (us.getNombre().equals(u.getNombre()) || us.getCorreo().equals(u.getCorreo())) {
+                    return null;
+                }
+            }
+            session.save(u);
+            return u;
+        }
+        catch (Exception e){
+                // LOG
+        }
+        finally {
+            session.close();
+        }
+        return null;
+    }
+
+    @Override
     public void addObjeto(String nombre, String descripcion, double precio, String fotoImagen) {
         this.listaObjetos.add(new Objeto(nombre, descripcion, precio, fotoImagen));
         logger.info("Se ha añadido correctamente");
+    }
+
+    @Override
+    public Objeto addObjetoORM(String nombre, String descripcion, double precio, String fotoImagen) {
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            Objeto o = new Objeto(nombre, descripcion, precio, fotoImagen);
+            session.save(o);
+            return o;
+
+        }
+        catch (Exception e){
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+        return null;
     }
 
     @Override
@@ -93,16 +134,16 @@ public class GameManagerImpl implements GameManager {
     @Override
     public boolean loginORM(String correo, String password) {
         Session session = null;
-        UsuarioTO usuario = null;
+        Usuario usuario = null;
         try {
             session = FactorySession.openSession();
-            usuario= getUserByEmail(correo);
+            usuario= getUserByEmailORM(correo);
             if (usuario.getCorreo().equals(correo)&(usuario.getPassword().equals(password))){
-                logger.info("usuario loggedo");
+                logger.info("usuario loggeado");
                 return true;
 
             }
-            logger.info("usuario NO loggedo");
+            logger.info("usuario NO loggeado");
             return false;
             /*User u = new User(email, password);
             session.save(u);*/
@@ -118,7 +159,7 @@ public class GameManagerImpl implements GameManager {
         }
 
 
-    @Override
+/*    @Override
     public Objeto hacerCompra(String Usuario, String nombreObjeto) {
 
         Usuario usuario = getUsuarioPorNombre(Usuario);
@@ -138,6 +179,35 @@ public class GameManagerImpl implements GameManager {
                 logger.info(Usuario + " ahora tienes: " + saldo + " dsaCoins");
                 return objeto;
             }
+        }
+        return null;
+    }*/
+
+    @Override
+    public TablaCompra hacerCompraORM(Integer idUsuario, Integer idObjeto) {
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            Usuario usuario = getUsuarioORM(idUsuario);
+            Objeto objeto = getObjetoORM(idObjeto);
+
+            if(usuario.getDsacoins() < objeto.getPrecio()){
+                return null;
+            }
+            else {
+                double dinero = usuario.getDsacoins()-objeto.getPrecio();
+                usuario.setDsacoins(dinero);
+                session.update(usuario);
+                TablaCompra tablacompra = new TablaCompra(idUsuario, idObjeto);
+                session.save(tablacompra);
+                return tablacompra;
+            }
+        }
+        catch (Exception e){
+
+        }
+        finally {
+            session.close();
         }
         return null;
     }
@@ -191,12 +261,12 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
-    public UsuarioTO getUserByEmail(String correo) {
+    public Usuario getUserByEmailORM(String correo) {
         Session session = null;
-        UsuarioTO usuario = null;
+        Usuario usuario = null;
         try {
             session = FactorySession.openSession();
-            usuario = (UsuarioTO) session.get(UsuarioTO.class, "correo", correo);
+            usuario = (Usuario) session.get(Usuario.class, "correo", correo);
         }
         catch (Exception e) {
             // LOG
@@ -209,6 +279,52 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
+    public Usuario getUsuarioORM(Integer idUsuario) {
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            List<Usuario> listaUsuarios = session.findAll(new Usuario().getClass());
+            for (Usuario usuario : listaUsuarios) {
+                if (usuario.getId() == idUsuario) {
+                    return usuario;
+                }
+            }
+            return null;
+        }
+        catch (Exception e) {
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+
+        return null;
+    }
+
+    @Override
+    public Objeto getObjetoORM(Integer idObjeto){
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            List<Objeto> listaObjetos = session.findAll(new Objeto().getClass());
+            for (Objeto objeto : listaObjetos) {
+                if (objeto.getId() == idObjeto) {
+                    return objeto;
+                }
+            }
+            return null;
+        }
+        catch (Exception e) {
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+
+        return null;
+    }
+
+    @Override
     public void clear() {
         this.listaObjetos.clear();
     }
@@ -217,6 +333,7 @@ public class GameManagerImpl implements GameManager {
     public int size() {
         return this.listaObjetos.size();
     }
+
 
     // public int size() {
     //   int ret = this.tracks.size();
