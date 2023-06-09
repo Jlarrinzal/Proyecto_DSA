@@ -75,7 +75,7 @@ public class GameService {
     })
     @Path("/registrarUsuario2")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUser(UsuarioTO usuarioTO) {//Antes VOUsuario user
+    public Response registrarUsuario2(UsuarioTO usuarioTO) {//Antes VOUsuario user
         Usuario user = new Usuario(usuarioTO);
         user = this.manager.addUsuario2(user);
         if (user == null) {
@@ -182,8 +182,8 @@ public class GameService {
     })
     @Path("/datosUsuario/{correo}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsuario(@PathParam("correo") String correo) {
-        Usuario u = this.manager.getUserByEmailORM(correo);
+    public Response getUsuario(@PathParam("correo") String email) {
+        Usuario u = this.manager.getUserByEmailORM(email);
         if (u != null)
             return Response.status(201).entity(u).build();
         else

@@ -1,15 +1,46 @@
-function irLogin(){
-    window.location.href="Login.html";
+/*function redirigirALogin() {
+    if (window.location.pathname !== "/Login.html") {
+        window.location.href = "Login.html";
+    }
 }
-function irRegister(){
-    window.location.href="Register.html";
+function redirigirATienda() {
+    if (window.location.pathname !== "/Tienda.html") {
+        window.location.href = "Tienda.html";
+    }
 }
-function irIndex(){
-    window.location.href="index.html";
+function redirigirARegister() {
+    if (window.location.pathname !== "/Register.html") {
+        window.location.href = "Register.html";
+    }
 }
-function logout() {
-    localStorage.clear();
-    window.location.href = "login.html";
+function redirigirAIndex() {
+    if (window.location.pathname !== "/Index.html") {
+        window.location.href = "Index.html";
+    }
+}
+function cerrarSession() {
+    var token = localStorage.getItem('token');
+    if (token) {
+        $.ajax({
+            type: 'POST',
+            url: '/dsaApp/game/cerrarSession',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            success: function(result) {
+                localStorage.removeItem('token');
+                redirigirALogin();
+            },
+            error: function(error) {
+                console.log(error);
+                localStorage.removeItem('token');
+                redirigirALogin();
+            }
+        });
+    } else {
+        localStorage.removeItem('token');
+        redirigirALogin();
+    }
 }
 function logear(){
     var correo = $('#usuario').val();
@@ -21,17 +52,27 @@ function logear(){
         data: JSON.stringify({ "correo": correo, "password": password }),
         dataType: 'json',
         success: function(result){
-            window.location.href="Tienda.html"
-            alert("Login correcto.")
+            localStorage.setItem('token', result.token);
+            redirigirATienda()
         },
         error: function(error){
-            if (usuario == "" || password == "")
+            if (correo == "" || password == "")
                 alert("Te has dejado algo en blaco, compruebalo de nuevo!");
             else{
                 alert("Correo o contraseña incorrecta, prueba de nuevo!");
             }
         }
     });
+}
+function verificarSesion() {
+    var token = localStorage.getItem('token');
+    if (!token) {
+        redirigirALogin();
+        return;
+    }
+    else {
+        return;
+    }
 }
 function registrar() {
     var username = $('#usuario').val();
@@ -44,10 +85,10 @@ function registrar() {
             contentType: "application/json",
             type: 'POST',
             url: '/dsaApp/game/registrarUsuario',
-            data: JSON.stringify({"nombre": username, "correo":email, "password": password}),
+            data: JSON.stringify({"nombre": username, "correo": email, "password": password}),
             dataType: 'json',
             success: function (result) {
-                window.location.href = "Login.html";
+                redirigirALogin();
             },
             error: function (error) {
                 console.log(error);
@@ -57,16 +98,20 @@ function registrar() {
                     alert("Usuario o contraseña ya estan siendo usados, prueba de nuevo!");
             }
         });
-    }
-    else alert("Comprueba que las dos contraseñas son iguales.");
+    } else alert("Comprueba que las dos contraseñas son iguales.");
 }
 function listadeObjetos() {
+    var token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = "Login.html";
+        return;
+    }
     $("#tcuerpo").empty();
     $.ajax({
-        type:'GET',
-        url:"/dsaApp/game/listaObjetos",
-        dataType:'json',
-        success:function (result) {
+        type: 'GET',
+        url: "/dsaApp/game/listaObjetos",
+        dataType: 'json',
+        success: function (result) {
             for (let i = 0; i < result.length; i++) {
                 console.log("i: " + i, result[i]);
                 $("#tabla").append(
@@ -77,26 +122,8 @@ function listadeObjetos() {
             }
         },
         error: function (error) {
-            alert("Unable to get Shop data.");
+            alert("Sin datos de compra.");
             console.log(error);
-            window.location.href = "Main.html";
         }
     });
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}*/
