@@ -1,3 +1,4 @@
+localStorage.clear();
 /*function redirigirALogin() {
     if (window.location.pathname !== "/Login.html") {
         window.location.href = "Login.html";

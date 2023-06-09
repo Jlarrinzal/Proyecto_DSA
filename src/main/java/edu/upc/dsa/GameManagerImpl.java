@@ -275,7 +275,6 @@ public class GameManagerImpl implements GameManager {
         }
         return inventario;
     }
-
 /*    @Override
     public List<Objeto> listadeObjetosOrdenadosPorPrecio() {
         this.listaObjetos.sort(new Comparator<Objeto>() {
