@@ -1,6 +1,5 @@
 package edu.upc.dsa;
 
-import edu.upc.dsa.models.dto.UsuarioTO;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
@@ -99,7 +98,7 @@ public class GameManagerTest {
 
     @Test
     public void Compra() {
-        manager.hacerCompraORM("c", "melon");
+        manager.hacerCompraORM("j", "melon");
     }
 
     @Test
@@ -110,6 +109,20 @@ public class GameManagerTest {
     @Test
     public void getobjORM(){
         manager.getObjetoORM("manzana");
+    }
+
+    @Test
+    public void listaObjetosORM(){
+        manager.listadeObjetosORM();
+    }
+    @Test
+    public void listaTBORM(){
+        manager.listadeTablaCompraORM();
+    }
+
+    @Test
+    public void listaObjetosCompradosPorUsuarioORM(){
+        manager.listaObjetosCompradosPorUsuarioORM("j");
     }
 
 }

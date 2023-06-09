@@ -3,7 +3,6 @@ package edu.upc.dsa;
 import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
 import edu.upc.dsa.models.dto.TablaCompra;
-import edu.upc.dsa.models.dto.UsuarioTO;
 
 import java.util.List;
 
@@ -21,6 +20,8 @@ public interface GameManager {
     public TablaCompra hacerCompraORM(String correo, String nombreObjeto); // Metodo para hacer compra en BBDD
     public List<Objeto> listadeObjetos();// get lista de objetos
     public List<Objeto> listadeObjetosORM();
+    public List<TablaCompra> listadeTablaCompraORM();
+    public List<TablaCompra> listaObjetosCompradosPorUsuarioORM(String correo);
     //Lista de objetos ordenados precio ascendente
  //   List<Objeto> listadeObjetosOrdenadosPorPrecio();
 

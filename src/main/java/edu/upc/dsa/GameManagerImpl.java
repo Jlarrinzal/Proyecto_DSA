@@ -8,6 +8,7 @@ import edu.upc.eetac.dsa.FactorySession;
 import edu.upc.eetac.dsa.Session;
 import edu.upc.eetac.dsa.IUserDAO;
 import edu.upc.eetac.dsa.UserDAOImpl;
+import edu.upc.eetac.dsa.model.User;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -235,6 +236,44 @@ public class GameManagerImpl implements GameManager {
             session.close();
         }
         return null;
+    }
+
+    @Override
+    public List<TablaCompra> listadeTablaCompraORM() {
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            List<TablaCompra> listaTablaCompra = session.findAll(new TablaCompra().getClass());
+            return listaTablaCompra;
+        }
+        catch (Exception e){
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+        return null;
+    }
+
+    @Override
+    public List<TablaCompra> listaObjetosCompradosPorUsuarioORM(String correo) {
+        Session session = null;
+        List<TablaCompra> inventario = new ArrayList<>();
+
+        try {
+            session = FactorySession.openSession();
+            HashMap<String, String> usuario = new HashMap<>();
+            usuario.put("correo", correo);
+            List<TablaCompra> compras = session.findAll(TablaCompra.class, usuario);
+            inventario.addAll(compras);
+        }
+        catch (Exception e){
+            // LOG
+        }
+        finally{
+            session.close();
+        }
+        return inventario;
     }
 
 /*    @Override
