@@ -51,7 +51,7 @@ function getUser() {
         url: "/dsaApp/game/datosUsuario/"+correo,
         dataType: 'json',
         success: function (result) {
-            $("#user").text("Usario: " + result.nombre);
+            $("#user").text("Usuario: " + result.nombre);
             $("#coins").text("Coins: " + result.dsacoins);
             localStorage.setItem('coins', result.dsacoins)
         },

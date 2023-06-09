@@ -31,7 +31,7 @@ function listadeObjetos() {
                 $("#tabla").append(
                     "<tr> <td>" + result[i].nombre +
                     "</td> <td>" + result[i].descripcion +
-                    "</td> <td>" + result[i].precio + "</td></tr>" +
+                    "</td> <td>" + result[i].precio + "</td>" +
                     '</td><td>' + '<button type = "button" class = "button" id="' + result[i].nombre +
                     '" onclick="comprarItem(this.id)"  >Comprar</button>' + '</td> </tr>'
                 );
@@ -107,13 +107,4 @@ function getUser() {
             console.log(error);
         }
     });
-}
-window.onload = function() {
-    var filas = document.getElementsByTagName("tr");
-    for (var i = 0; i < filas.length; i++) {
-        var filaId = filas[i].id;
-        filas[i].onclick = function() {
-            comprarItem(filaId);
-        };
-    }
 };
