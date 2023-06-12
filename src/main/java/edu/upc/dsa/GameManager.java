@@ -22,6 +22,7 @@ public interface GameManager {
     public List<Objeto> listadeObjetosORM();
     public List<TablaCompra> listadeTablaCompraORM();
     public List<TablaCompra> listaObjetosCompradosPorUsuarioORM(String correo);
+    public void updateUsuario( String nombre, String correo, String password); // Actualizar los datos de un usuario
     //Lista de objetos ordenados precio ascendente
  //   List<Objeto> listadeObjetosOrdenadosPorPrecio();
 

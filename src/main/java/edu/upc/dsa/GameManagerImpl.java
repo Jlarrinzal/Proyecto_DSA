@@ -141,7 +141,8 @@ public class GameManagerImpl implements GameManager {
         try {
             session = FactorySession.openSession();
             usuario= getUserByEmailORM(correo);
-            if (usuario.getCorreo().equals(correo)&(usuario.getPassword().equals(password))){
+            String p= session.getpassword(password);
+            if (usuario.getCorreo().equals(correo)&(usuario.getPassword().equals(p))){
                 logger.info("usuario loggeado");
                 return true;
 
@@ -274,6 +275,29 @@ public class GameManagerImpl implements GameManager {
             session.close();
         }
         return inventario;
+    }
+
+    @Override
+    public void updateUsuario(String nombre, String correo, String password) {
+        int id=0;
+        Usuario us = new Usuario(nombre,correo,password);
+        Usuario u = null;
+
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            u=getUserByEmailORM(correo);
+            if(u.getCorreo().equals(correo)) {
+                us.setId(u.getId());
+                session.update(us);
+            }
+        }
+        catch (Exception e) {
+            // LOG
+        }
+        finally {
+            session.close();
+        }
     }
 /*    @Override
     public List<Objeto> listadeObjetosOrdenadosPorPrecio() {

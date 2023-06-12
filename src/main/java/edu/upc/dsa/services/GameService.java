@@ -117,7 +117,7 @@ public class GameService {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(CredencialTO credencials) {
-        //Usuario u = this.manager.getUsuarioPorCorreo(credencials.getCorreo());
+/*        //Usuario u = this.manager.getUsuarioPorCorreo(credencials.getCorreo());
         Usuario u = this.manager.getUserByEmailORM(credencials.getCorreo());
 
         if (u == null) {
@@ -129,6 +129,14 @@ public class GameService {
             return Response.status(201).entity(credencials).build();
 
         } else {
+            return Response.status(404).entity("credenciales invalidas").build();
+        }*/
+
+        this.manager.loginORM(credencials.getCorreo(), credencials.getPassword());
+        if (manager.loginORM(credencials.getCorreo(), credencials.getPassword()) == true){
+            return Response.status(201).entity(credencials).build();
+        }
+        else{
             return Response.status(404).entity("credenciales invalidas").build();
         }
     }

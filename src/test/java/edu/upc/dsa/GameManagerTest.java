@@ -1,5 +1,7 @@
 package edu.upc.dsa;
 
+import edu.upc.eetac.dsa.IUserDAO;
+import edu.upc.eetac.dsa.UserDAOImpl;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
@@ -123,6 +125,16 @@ public class GameManagerTest {
     @Test
     public void listaObjetosCompradosPorUsuarioORM(){
         manager.listaObjetosCompradosPorUsuarioORM("j");
+    }
+
+    @Test
+    public void getLoginTest1() {
+        Assert.assertTrue(manager.loginORM("r", "r"));
+    }
+
+    @Test
+    public void updateUsuario() {
+        manager.updateUsuario("borja", "b","1234");
     }
 
 }
