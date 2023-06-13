@@ -1,5 +1,6 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.models.Usuario;
 import edu.upc.eetac.dsa.IUserDAO;
 import edu.upc.eetac.dsa.UserDAOImpl;
 import org.apache.log4j.Logger;
@@ -133,8 +134,14 @@ public class GameManagerTest {
     }
 
     @Test
+    public void addUsuarioORM() {
+        Usuario usuario = new Usuario("Jose1","m","1");
+        manager.addUsuario2(usuario);
+    }
+
+    @Test
     public void updateUsuario() {
-        manager.updateUsuario("borja", "b","1234");
+        manager.updateUsuario("Jose","ñ","1");
     }
 
 }

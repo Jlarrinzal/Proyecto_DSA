@@ -76,7 +76,7 @@ public class GameManagerImpl implements GameManager {
             session = FactorySession.openSession();
             List<Usuario> listaUsuarios = session.findAll(Usuario.class);
             for (Usuario us : listaUsuarios) {
-                if (us.getNombre().equals(u.getNombre()) || us.getCorreo().equals(u.getCorreo())) {
+                if (us.getCorreo().equals(u.getCorreo())) {
                     return null;
                 }
             }
