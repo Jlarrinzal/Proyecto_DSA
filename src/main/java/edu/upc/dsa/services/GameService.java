@@ -3,6 +3,7 @@ package edu.upc.dsa.services;
 
 import edu.upc.dsa.GameManager;
 import edu.upc.dsa.GameManagerImpl;
+import edu.upc.dsa.models.Consulta;
 import edu.upc.dsa.models.Mapa;
 import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
@@ -228,6 +229,20 @@ public class GameService {
         else
             return Response.status(500).build();
     }
+    //Hacer una consulta
+    @POST
+    @ApiOperation(value = "Añadir Consulta", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Consulta.class),
+            @ApiResponse(code = 500, message = "Validation Error")
+    })
+    @Path("/question")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response question(Consulta consulta) {
+        this.manager.añadirConsulta(consulta.getFecha(), consulta.getTitle(), consulta.getComentario(), consulta.getSender());
+        return Response.status(201).entity(consulta).build();
+    }
+
 
     //lista objetos ordenados ascendentemente
  /*   @GET

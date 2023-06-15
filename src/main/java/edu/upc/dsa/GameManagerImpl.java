@@ -1,5 +1,6 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.models.Consulta;
 import edu.upc.dsa.models.Mapa;
 import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
@@ -7,9 +8,6 @@ import edu.upc.dsa.models.dto.TablaCompra;
 import edu.upc.dsa.models.dto.UsuarioTO;
 import edu.upc.eetac.dsa.FactorySession;
 import edu.upc.eetac.dsa.Session;
-import edu.upc.eetac.dsa.IUserDAO;
-import edu.upc.eetac.dsa.UserDAOImpl;
-import edu.upc.eetac.dsa.model.User;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -470,6 +468,23 @@ public class GameManagerImpl implements GameManager {
 
         return mapa;
     }
+
+    @Override
+    public void añadirConsulta(String fecha, String nombre, String comentario,String sender) {
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            Consulta c = new Consulta(fecha, nombre, comentario,sender);
+            session.save(c);
+        }
+        catch (Exception e) {
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+    }
+
 
 
     // public int size() {

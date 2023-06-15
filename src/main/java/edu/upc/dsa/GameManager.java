@@ -47,4 +47,6 @@ public interface GameManager {
 
     public Mapa getMapaPorNivelORM(String nombremapa);
 
+    public void añadirConsulta(String fecha, String title, String comentario,String sender);
+
 }
