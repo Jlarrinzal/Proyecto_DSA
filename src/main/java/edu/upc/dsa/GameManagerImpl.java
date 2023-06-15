@@ -1,13 +1,11 @@
 package edu.upc.dsa;
 
-import edu.upc.dsa.models.Consulta;
-import edu.upc.dsa.models.Mapa;
-import edu.upc.dsa.models.Objeto;
-import edu.upc.dsa.models.Usuario;
+import edu.upc.dsa.models.*;
 import edu.upc.dsa.models.dto.TablaCompra;
 import edu.upc.dsa.models.dto.UsuarioTO;
 import edu.upc.eetac.dsa.FactorySession;
 import edu.upc.eetac.dsa.Session;
+import edu.upc.eetac.dsa.model.User;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -485,6 +483,46 @@ public class GameManagerImpl implements GameManager {
         }
     }
 
+    @Override
+    public Language añadirLanguage(String correo, String language) {
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            Language l = new Language(correo, language);
+            session.save(l);
+            return l;
+
+        }
+        catch (Exception e){
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+        return null;
+    }
+
+  /*  @Override
+    public void añadirIdioma(String nombre, String correo, String password, double dsacoins, String language) {
+        Usuario us = new Usuario(correo, language);
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+           Usuario u = getUserByEmailORM(correo);
+            if(u.getCorreo().equals(correo)) {
+                us.setId(u.getId());
+                us.setNombre(u.getNombre());
+                us.setLanguage(u.getLanguage());
+                session.update(us);
+            }
+        }
+        catch (Exception e) {
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+    }*/
 
 
     // public int size() {

@@ -1,8 +1,6 @@
 package edu.upc.dsa;
 
 import edu.upc.dsa.models.Usuario;
-import edu.upc.eetac.dsa.IUserDAO;
-import edu.upc.eetac.dsa.UserDAOImpl;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
@@ -135,13 +133,13 @@ public class GameManagerTest {
 
     @Test
     public void addUsuarioORM() {
-        Usuario usuario = new Usuario("Jose1","m","1");
+        Usuario usuario = new Usuario("PruebaLanguage4","Language","12");
         manager.addUsuario2(usuario);
     }
 
     @Test
     public void updateUsuario() {
-        manager.updateUsuario("Jose","ñ","1");
+        manager.updateUsuario("Jose23","ñ","123");
     }
     @Test
     public void crearMapa() {
@@ -157,5 +155,11 @@ public class GameManagerTest {
     public void crearMapa2() {
         manager.addMapaORM("Nivel 2","");
     }
+
+/*    @Test
+    public void probarIdioma(){
+        //Usuario usuario = new Usuario("l","en");
+        manager.añadirIdioma("Jose","Language","12",500,"en");
+    }*/
 
 }

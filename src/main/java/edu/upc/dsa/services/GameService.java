@@ -3,10 +3,7 @@ package edu.upc.dsa.services;
 
 import edu.upc.dsa.GameManager;
 import edu.upc.dsa.GameManagerImpl;
-import edu.upc.dsa.models.Consulta;
-import edu.upc.dsa.models.Mapa;
-import edu.upc.dsa.models.Objeto;
-import edu.upc.dsa.models.Usuario;
+import edu.upc.dsa.models.*;
 import edu.upc.dsa.models.dto.CredencialTO;
 import edu.upc.dsa.models.dto.TablaCompra;
 import edu.upc.dsa.models.dto.UsuarioTO;
@@ -243,6 +240,18 @@ public class GameService {
         return Response.status(201).entity(consulta).build();
     }
 
+    //Language
+    @PUT
+    @ApiOperation(value = "Language", notes = "asdas")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Language.class),
+    })
+    @Path("/putLanguage/{correo}/{language}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response putLanguage(@PathParam("correo") String correo, @PathParam("language")String language) {
+        this.manager.añadirLanguage(correo,language);
+        return Response.status(201).build();
+    }
 
     //lista objetos ordenados ascendentemente
  /*   @GET

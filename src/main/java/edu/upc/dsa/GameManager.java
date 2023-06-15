@@ -1,5 +1,6 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.models.Language;
 import edu.upc.dsa.models.Mapa;
 import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
@@ -48,5 +49,9 @@ public interface GameManager {
     public Mapa getMapaPorNivelORM(String nombremapa);
 
     public void añadirConsulta(String fecha, String title, String comentario,String sender);
+
+    public Language añadirLanguage(String correo, String language);
+
+    //public void añadirIdioma(String nombre, String correo, String password, double dsacoins, String language);
 
 }

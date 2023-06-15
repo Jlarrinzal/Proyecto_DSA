@@ -6,10 +6,12 @@ public class Usuario {
 
     int id;
     String nombre;
-    String correo;
-    String password;
+    private String correo;
+    private String password;
     //private List<Objeto> listaObjetosComprados = null;
     double dsacoins = 500;
+
+    private String language= "es";
 
     public Usuario() {
 
@@ -21,11 +23,20 @@ public class Usuario {
         this.setCorreo(usuarioTO.getCorreo());
         this.setPassword(usuarioTO.getPassword());
         this.setDsacoins(500);
+        this.setLanguage(language);
     }
-    public Usuario(String correo, String password){
-        this.setCorreo(correo);
-        this.setPassword(password);
+    public Usuario(String correo, String password) {
+        this.correo = correo;
+        this.password = password;
     }
+
+/*    public Usuario(String nombre, String correo, String password, double dsacoins, String language) {
+        this.nombre= nombre;
+        this.correo = correo;
+        this.password=password;
+        this.dsacoins=dsacoins;
+        this.language = language;
+    }*/
 
 
   /*  public Usuario(String nombre, String apellido, String apellido2, String fecha, String correo, String password) {
@@ -91,4 +102,11 @@ public class Usuario {
         this.dsacoins = dsacoins;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 }
