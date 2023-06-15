@@ -143,5 +143,19 @@ public class GameManagerTest {
     public void updateUsuario() {
         manager.updateUsuario("Jose","ñ","1");
     }
+    @Test
+    public void crearMapa() {
+        manager.addMapaORM("Nivel 1","-------T------\n" +
+                "mm---T---T----\n" +
+                "mm------------\n" +
+                "mm-T----T---T-\n" +
+                "mm--T--T-----T\n" +
+                "--------------");
+    }
+
+    @Test
+    public void crearMapa2() {
+        manager.addMapaORM("Nivel 2","");
+    }
 
 }

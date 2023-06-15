@@ -1,5 +1,6 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.models.Mapa;
 import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
 import edu.upc.dsa.models.dto.TablaCompra;
@@ -431,6 +432,43 @@ public class GameManagerImpl implements GameManager {
     @Override
     public int size() {
         return this.listaObjetos.size();
+    }
+
+    @Override
+    public Mapa addMapaORM(String nombremapa, String mapatxt) {
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            Mapa m = new Mapa(nombremapa, mapatxt);
+            session.save(m);
+            return m;
+
+        }
+        catch (Exception e){
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+        return null;
+    }
+
+    @Override
+    public Mapa getMapaPorNivelORM(String nombremapa) {
+        Session session = null;
+        Mapa mapa = null;
+        try {
+            session = FactorySession.openSession();
+            mapa = (Mapa) session.get(Mapa.class, "nombremapa", nombremapa);
+        }
+        catch (Exception e) {
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+
+        return mapa;
     }
 
 

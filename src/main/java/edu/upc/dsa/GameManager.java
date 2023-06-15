@@ -1,5 +1,6 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.models.Mapa;
 import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
 import edu.upc.dsa.models.dto.TablaCompra;
@@ -41,5 +42,9 @@ public interface GameManager {
     public void clear();
 
     public int size();
+
+    public Mapa addMapaORM(String nombremapa, String mapatxt);
+
+    public Mapa getMapaPorNivelORM(String nombremapa);
 
 }

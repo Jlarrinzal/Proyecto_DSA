@@ -3,6 +3,7 @@ package edu.upc.dsa.services;
 
 import edu.upc.dsa.GameManager;
 import edu.upc.dsa.GameManagerImpl;
+import edu.upc.dsa.models.Mapa;
 import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
 import edu.upc.dsa.models.dto.CredencialTO;
@@ -210,6 +211,22 @@ public class GameService {
         List<TablaCompra> listaObjetoUsuario = this.manager.listaObjetosCompradosPorUsuarioORM(correo);
         GenericEntity<List<TablaCompra>> entity = new GenericEntity<List<TablaCompra>>(listaObjetoUsuario) {};
         return Response.status(201).entity(entity).build()  ;
+    }
+
+    //Pasar Mapa
+    @GET
+    @ApiOperation(value = "Pasar Mapa", notes = "asdas")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Mapa.class),
+    })
+    @Path("/getMapa/{nombremapa}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMapa(@PathParam("nombremapa") String nombremapa) {
+        Mapa m = this.manager.getMapaPorNivelORM(nombremapa);
+        if (m != null)
+            return Response.status(201).entity(m).build();
+        else
+            return Response.status(500).build();
     }
 
     //lista objetos ordenados ascendentemente
