@@ -32,6 +32,19 @@ public class GameService {
             // this.manager.addObjeto("pokeball", "Captura Pokemon", 5.00);
             this.manager.registrarUsuario("Jose", "jose@gmail.com", "123");
             this.manager.registrarUsuario("Jose", "n", "123");
+            this.manager.addMapaORM("Nivel 1","-------T------\n" +
+                    "mm---T---T----\n" +
+                    "mm------------\n" +
+                    "mm-T----T---T-\n" +
+                    "mm--T--T-----T\n" +
+                    "--------------");
+            this.manager.addMapaORM("Nivel 2","-------T---T--\n" +
+                    "mm---T---T----\n" +
+                    "mm-----T------\n" +
+                    "mm---------T--\n" +
+                    "mm--T--T--T--T\n" +
+                    "--------------");
+
             //this.manager.addUsuarioORM("P","p","12");
             //this.manager.registrarUsuario("Prueba", "prueba@gmail.com", "1234");
             this.manager.addObjeto("Monitor","144Hz",99.99,"https://img.freepik.com/vector-premium/monitor-computadora-realista_88272-327.jpg");
@@ -40,7 +53,7 @@ public class GameService {
         }
     }
 
-    //Registrar usuario
+/*    //Registrar usuario
     @POST
     @ApiOperation(value = "Registrar usuario", notes = "asdasd")
     @ApiResponses(value = {
@@ -63,7 +76,7 @@ public class GameService {
             this.manager.addUsuarioORM(usuario.getNombre(), usuario.getCorreo(), usuario.getPassword());
             return Response.status(201).entity(usuario).build();
         }
-    }
+    }*/
 
     @POST
     @ApiOperation(value = "registrar usuario 2", notes = "asdasd")
@@ -100,7 +113,7 @@ public class GameService {
     public Response addObjeto(Objeto objeto) {
 
         if (objeto.getNombre()==null || objeto.getDescripcion()==null || objeto.getPrecio()==0.00)  return Response.status(500).entity(objeto).build();
-        this.manager.addObjeto(objeto.getNombre(), objeto.getDescripcion(),objeto.getPrecio(), objeto.getFotoimagen());
+        this.manager.addObjetoORM(objeto.getNombre(), objeto.getDescripcion(),objeto.getPrecio(), objeto.getFotoimagen());
         return Response.status(201).entity(objeto).build();
     }
 

@@ -5,7 +5,6 @@ import edu.upc.dsa.models.dto.TablaCompra;
 import edu.upc.dsa.models.dto.UsuarioTO;
 import edu.upc.eetac.dsa.FactorySession;
 import edu.upc.eetac.dsa.Session;
-import edu.upc.eetac.dsa.model.User;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

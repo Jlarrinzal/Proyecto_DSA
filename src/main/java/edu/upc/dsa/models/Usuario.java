@@ -6,12 +6,10 @@ public class Usuario {
 
     int id;
     String nombre;
-    private String correo;
-    private String password;
+    String correo;
+    String password;
     //private List<Objeto> listaObjetosComprados = null;
     double dsacoins = 500;
-
-    private String language= "es";
 
     public Usuario() {
 
@@ -23,11 +21,10 @@ public class Usuario {
         this.setCorreo(usuarioTO.getCorreo());
         this.setPassword(usuarioTO.getPassword());
         this.setDsacoins(500);
-        this.setLanguage(language);
     }
     public Usuario(String correo, String password) {
-        this.correo = correo;
-        this.password = password;
+        this.setCorreo(correo);
+        this.setPassword(password);
     }
 
 /*    public Usuario(String nombre, String correo, String password, double dsacoins, String language) {
@@ -102,11 +99,4 @@ public class Usuario {
         this.dsacoins = dsacoins;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
 }

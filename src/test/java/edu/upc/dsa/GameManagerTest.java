@@ -94,12 +94,12 @@ public class GameManagerTest {
     }
     @Test
     public void addObjetoORM(){
-        manager.addObjetoORM("manzana","roja",5.00,"a");
+        manager.addObjetoORM("pera","verde",15.00,"a");
     }
 
     @Test
-    public void Compra() {
-        manager.hacerCompraORM("j", "melon");
+    public void compra() {
+        manager.hacerCompraORM("we", "melon");
     }
 
     @Test
@@ -128,18 +128,18 @@ public class GameManagerTest {
 
     @Test
     public void getLoginTest1() {
-        Assert.assertTrue(manager.loginORM("r", "r"));
+        Assert.assertTrue(manager.loginORM("asd", "123"));
     }
 
     @Test
     public void addUsuarioORM() {
-        Usuario usuario = new Usuario("PruebaLanguage4","Language","12");
+        Usuario usuario = new Usuario("er","er","er");
         manager.addUsuario2(usuario);
     }
 
     @Test
     public void updateUsuario() {
-        manager.updateUsuario("Jose23","ñ","123");
+        manager.updateUsuario("Jose23","op","123");
     }
     @Test
     public void crearMapa() {
