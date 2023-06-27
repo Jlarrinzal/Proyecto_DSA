@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.models.auth.In;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -32,24 +33,45 @@ public class GameService {
             // this.manager.addObjeto("pokeball", "Captura Pokemon", 5.00);
             this.manager.registrarUsuario("Jose", "jose@gmail.com", "123");
             this.manager.registrarUsuario("Jose", "n", "123");
-            this.manager.addMapaORM("Nivel 1","-------T------\n" +
-                    "mm---T---T----\n" +
-                    "mm------------\n" +
-                    "mm-T----T---T-\n" +
-                    "mm--T--T-----T\n" +
-                    "--------------");
-            this.manager.addMapaORM("Nivel 2","-------T---T--\n" +
-                    "mm---T---T----\n" +
-                    "mm-----T------\n" +
-                    "mm---------T--\n" +
-                    "mm--T--T--T--T\n" +
-                    "--------------");
+            this.manager.addMapaORM("Nivel 1","-------T----\n" +
+                    "-T---T---T--\n" +
+                    "------------\n" +
+                    "---T----T---\n" +
+                    "----T--T----\n" +
+                    "-T---------T\n" +
+                    "---T--T-----\n" +
+                    "------------\n" +
+                    "------T-----\n" +
+                    "-T----------");
+            this.manager.addMapaORM("Nivel 2","-------T----\n" +
+                    "-T-------T--\n" +
+                    "-------T----\n" +
+                    "---T----T---\n" +
+                    "----T--T----\n" +
+                    "-T----------\n" +
+                    "---T------T-\n" +
+                    "-------TT---\n" +
+                    "------T----T\n" +
+                    "-T----------");
+            this.manager.addMapaORM("Nivel 3","-------T----\n" +
+                    "-T---T------\n" +
+                    "-------T----\n" +
+                    "---T--------\n" +
+                    "----T--T----\n" +
+                    "-T---T-----T\n" +
+                    "---T-------T\n" +
+                    "--T--T------\n" +
+                    "-T----------\n" +
+                    "-T----T--T-T");
 
             //this.manager.addUsuarioORM("P","p","12");
             //this.manager.registrarUsuario("Prueba", "prueba@gmail.com", "1234");
             this.manager.addObjeto("Monitor","144Hz",99.99,"https://img.freepik.com/vector-premium/monitor-computadora-realista_88272-327.jpg");
             this.manager.addObjeto("Raton","inalambrico",20.00,"https://www.info-computer.com/156049-medium_default/logitech-lgt-m90-1000-dpi-gris-q.jpg");
             this.manager.addObjeto("Teclado","Retroiluminado",50.00,"https://www.shutterstock.com/image-photo/computer-keyboard-isolated-on-white-260nw-222047851.jpg");
+            this.manager.addMensajeORM("El juego está actualizado");
+            this.manager.addMensajeORM("Nuevos elementos disponibles en la tienda");
+            this.manager.addMensajeORM("Recuerda que puedes cambiar el idioma de la app ;)");
         }
     }
 
@@ -264,6 +286,50 @@ public class GameService {
     public Response putLanguage(@PathParam("correo") String correo, @PathParam("language")String language) {
         this.manager.añadirLanguage(correo,language);
         return Response.status(201).build();
+    }
+
+    //Añadir insignia
+    @POST
+    @ApiOperation(value = "añadir insignia", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response= Objeto.class),
+            @ApiResponse(code = 500, message = "Validation Error")
+
+    })
+
+    @Path("/addInsignia")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addInsignia(Insignia insignia) {
+        this.manager.addInsigniaORM(insignia.getCorreo(), insignia.getNombreinsignia(),insignia.getAvatar());
+        return Response.status(201).build();
+    }
+
+    //lista insignias de un usuario
+    @GET
+    @ApiOperation(value = "lista insignias de un usuario", notes = "asdas")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = TablaCompra.class, responseContainer="List"),
+    })
+    @Path("/badges/{correo}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInsignias(@PathParam("correo") String correo) {
+        List<Insignia> listaInsigniaUsuario = this.manager.listaInsigniasPorUsuarioORM(correo);
+        GenericEntity<List<Insignia>> entity = new GenericEntity<List<Insignia>>(listaInsigniaUsuario) {};
+        return Response.status(201).entity(entity).build()  ;
+    }
+
+    //lista insignias de un usuario
+    @GET
+    @ApiOperation(value = "lista insignias de un usuario", notes = "asdas")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Mensaje.class, responseContainer="List"),
+    })
+    @Path("/posts")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getlistaMensajes() {
+        List<Mensaje> listaMensajeUsuario = this.manager.listaMensajesORM();
+        GenericEntity<List<Mensaje>> entity = new GenericEntity<List<Mensaje>>(listaMensajeUsuario) {};
+        return Response.status(201).entity(entity).build()  ;
     }
 
     //lista objetos ordenados ascendentemente

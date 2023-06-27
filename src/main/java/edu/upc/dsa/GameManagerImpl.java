@@ -114,6 +114,25 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
+    public Mensaje addMensajeORM(String mensaje) {
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            Mensaje m = new Mensaje(mensaje);
+            session.save(m);
+            return m;
+
+        }
+        catch (Exception e){
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+        return null;
+    }
+
+    @Override
     public void login(String correo, String password) {
 
         Usuario usuario = null;
@@ -271,6 +290,63 @@ public class GameManagerImpl implements GameManager {
             session.close();
         }
         return inventario;
+    }
+
+    @Override
+    public List<Insignia> listaInsigniasPorUsuarioORM(String correo) {
+        Session session = null;
+        List<Insignia> insignias = new ArrayList<>();
+
+        try {
+            session = FactorySession.openSession();
+            HashMap<String, String> usuario = new HashMap<>();
+            usuario.put("correo", correo);
+            List<Insignia> listainsignias = session.findAll(Insignia.class, usuario);
+            insignias.addAll(listainsignias);
+        }
+        catch (Exception e){
+            // LOG
+        }
+        finally{
+            session.close();
+        }
+        return insignias;
+    }
+
+    @Override
+    public List<Mensaje> listaMensajesORM() {
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            List<Mensaje> listaMensaje = session.findAll(new Mensaje().getClass());
+            return listaMensaje;
+        }
+        catch (Exception e){
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+        return null;
+    }
+
+    @Override
+    public Insignia addInsigniaORM(String correo, String nombreinsignia, String avatar) {
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            Insignia o = new Insignia(correo, nombreinsignia, avatar);
+            session.save(o);
+            return o;
+
+        }
+        catch (Exception e){
+            // LOG
+        }
+        finally {
+            session.close();
+        }
+        return null;
     }
 
     @Override

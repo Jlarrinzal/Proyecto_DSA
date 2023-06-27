@@ -156,6 +156,18 @@ public class GameManagerTest {
         manager.addMapaORM("Nivel 2","");
     }
 
+    @Test
+    public void añadirinsignia(){
+        manager.addInsigniaORM("jk","roja","a");
+    }
+    @Test
+    public void verinsignia(){
+        manager.listaInsigniasPorUsuarioORM("jk");
+    }
+    @Test
+    public void mensaje(){
+        manager.addMensajeORM("hola");
+    }
 /*    @Test
     public void probarIdioma(){
         //Usuario usuario = new Usuario("l","en");

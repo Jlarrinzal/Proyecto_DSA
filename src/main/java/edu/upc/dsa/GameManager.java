@@ -1,9 +1,6 @@
 package edu.upc.dsa;
 
-import edu.upc.dsa.models.Language;
-import edu.upc.dsa.models.Mapa;
-import edu.upc.dsa.models.Objeto;
-import edu.upc.dsa.models.Usuario;
+import edu.upc.dsa.models.*;
 import edu.upc.dsa.models.dto.TablaCompra;
 
 import java.util.List;
@@ -16,6 +13,7 @@ public interface GameManager {
     public Usuario addUsuario2(Usuario usuario); // Añadir usuario con las clases Usuario y UsuarioTO
     public void addObjeto(String nombre, String descripcion, double precio, String fotoImagen); //Añadir Objeto/Producto
     public Objeto addObjetoORM(String nombre, String descripcion, double precio, String fotoImagen); //Añadir Objeto/Producto
+    public Mensaje addMensajeORM(String mensaje);
     public void login(String correo, String password); // login Usuario en arraylist
     public boolean loginORM(String correo, String password); // login usuario en BBDD
    // public Objeto hacerCompra(String Usuario, String nombreObjeto);     // Metodo hacer una compra con arraylist
@@ -24,6 +22,9 @@ public interface GameManager {
     public List<Objeto> listadeObjetosORM();
     public List<TablaCompra> listadeTablaCompraORM();
     public List<TablaCompra> listaObjetosCompradosPorUsuarioORM(String correo);
+    public List<Insignia> listaInsigniasPorUsuarioORM(String correo);
+    public List<Mensaje> listaMensajesORM();
+    public Insignia addInsigniaORM(String correo, String nombreinsignia, String avatar);
     public void updateUsuario( String nombre, String correo, String password); // Actualizar los datos de un usuario
     //Lista de objetos ordenados precio ascendente
  //   List<Objeto> listadeObjetosOrdenadosPorPrecio();
