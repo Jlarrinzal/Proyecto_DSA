@@ -19,8 +19,6 @@ Vídeo del proyecto
 
 [Vídeo del juego](https://drive.google.com/drive/u/2/folders/1ASp8KJCoI6acixKnqZr8lcVOpHes00kk)
 
-Esperem que us hagi agradat el nostre treball!
-
 
 
 
